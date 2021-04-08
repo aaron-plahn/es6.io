@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arrow Functions</title>
+</head>
+<body>
+    <p class="cool">
+        My paragraph.
+    </p>
+    <div class='square'>
+        My div.
+    </div>
+<script>
+  class Circle{
+      constructor(radius=1){
+          if(radius <0) throw Error(`Invalid radius: ${radius}`);
+          this.radius = radius;
+      }
+
+      area(){
+          return Math.PI*this.radius**2;
+      }
+
+      circumference(){
+          return 2*Math.PI*this.radius;
+      }
+
+      logCustomStat(calculator){
+          return calculator();
+      }
+  }
+
+  myCircle = new Circle(5);
+  
+  const stat1 = function(){
+      console.log(this.radius);
+  }
+
+  const stat2 = ()=> console.log(this.radius);
+//   console.log('stat1');
+//   myCircle.logCustomStat(stat1);
+//   console.log('stat2');
+//   myCircle.logCustomStat(stat2);
+
+ const paragraph = document.querySelector(".cool");
+ paragraph.addEventListener('click',function(){
+     console.log(this);
+ });
+
+ const div = document.querySelector('.square');
+ div.addEventListener('click',()=>{
+     console.log(this);
+ })
+
+ const reusabledCallback = function () {
+  console.log(this);
+};
+
+helperObject = {
+    doSomethingAsync: function(callback){
+        setTimeout(callback(),1000);
+    }
+}
+
+myObject = {
+  myMethod: function () {
+    helperObject.doSomethingAsync(reusabledCallback.bind(myObject));
+  },
+};
+
+myObject.myMethod();
+</script>
+
+</body>
+</html>
